@@ -7,7 +7,7 @@ Currently, this package includes two major components: (1) the functions, includ
 
 (1) The functions
 
-The main function ‘phylo.maker’ performs the task of binding tips to a backbone phylogeny, which by default is the maga-phylogeny 'GBOTB.extended.TPL' of vascular plants embedded in the package.
+The main function ‘phylo.maker’ performs the task of binding tips to a backbone phylogeny, which by default is the mega-phylogeny 'GBOTB.extended.TPL' of vascular plants embedded in the package.
 
 The function ‘bind.relative’ performs the task of binding tips to the their species- and genus-level closest relative in the backbone phylogeny, when information is provided. ‘bind.relative’ can work alone or with ‘phylo.maker’, for a list of species, as examplified in the function help page and Jin & Qian (2019).
 
