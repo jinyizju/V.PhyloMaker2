@@ -4,8 +4,8 @@ V.PhyloMaker2
 This R package makes phylogenetic hypotheses for a user-specified list of species, by providing multiple ways of binding the species (tips) to a backbone phylogeny, as described in Qian & Jin (2016), Jin & Qian (2019, 2022).
 
 How to install this package? 
-This package can be installed in R either using the install_github function in the ‘devtools’ package, or using the githubinstall function in the ‘githubinstall’ package. For example, the R code for installation of V.PhyloMaker2 using the ‘devtools’ package is as follows:  
-library("devtools"); 
+This package can be installed in R either using the install_github function in the ‘devtools’ package, or using the githubinstall function in the ‘githubinstall’ package. For example, the R code for installation of V.PhyloMaker2 using the ‘devtools’ package is as follows,  
+library("devtools")  
 devtools::install_github("jinyizju/V.PhyloMaker2")
 
 Currently, this package includes two major components: (1) the functions, including ‘phylo.maker’, ‘bind.relative’, ‘build.nodes.1’, ‘build.nodes.2’, ‘at.node’, ‘int.node’ and ‘ext.node’; and (2) the data, including 'GBOTB.extended.TPL', ‘tips.info.TPL’, ‘nodes.info.1.TPL’ and ‘nodes.info.2.TPL’, 'GBOTB.extended.LCVP', ‘tips.info.LCVP’, ‘nodes.info.1.LCVP’ and ‘nodes.info.2.LCVP’, 'GBOTB.extended.WP', ‘tips.info.WP’, ‘nodes.info.1.WP’ and ‘nodes.info.2.WP’.
