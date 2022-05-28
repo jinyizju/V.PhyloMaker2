@@ -45,8 +45,8 @@ The three versions of four data sets work with the functions to make phylogeneti
 
 ‘nodes.info.1.WP’ and ‘nodes.info.2.WP’ are the genus- and family-level node and age information in ‘GBOTB.extended.WP’ extracted by ‘build.nodes.1’ and ‘build.nodes.2’, respectively.
 
-Citation:
-Jin, Y., & Qian, H. (2022). V.PhyloMaker2: An updated and enlarged R package that can generate very large phylogenies for vascular plants. Plant Diversity, https://doi.org/10.1016/j.pld.2022.05.005
-Jin, Y., & Qian, H. (2019). V. PhyloMaker: an R package that can generate very large phylogenies for vascular plants. Ecography, 42(8), 1353-1359.
-Smith, S. A., & Brown, J. W. (2018). Constructing a broadly inclusive seed plant phylogeny. American journal of botany, 105(3), 302-314.
+Citation:  
+Jin, Y., & Qian, H. (2022). V.PhyloMaker2: An updated and enlarged R package that can generate very large phylogenies for vascular plants. Plant Diversity, https://doi.org/10.1016/j.pld.2022.05.005  
+Jin, Y., & Qian, H. (2019). V. PhyloMaker: an R package that can generate very large phylogenies for vascular plants. Ecography, 42(8), 1353-1359.  
+Smith, S. A., & Brown, J. W. (2018). Constructing a broadly inclusive seed plant phylogeny. American journal of botany, 105(3), 302-314.  
 Zanne, A. E., Tank, D. C., Cornwell, W. K., Eastman, J. M., Smith, S. A., FitzJohn, R. G., ... & Beaulieu, J. M. (2014). Three keys to the radiation of angiosperms into freezing environments. Nature, 506(7486), 89-92.
