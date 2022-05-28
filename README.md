@@ -4,7 +4,7 @@ V.PhyloMaker2
 This R package makes phylogenetic hypotheses for a user-specified list of species, by providing multiple ways of binding the species (tips) to a backbone phylogeny, as described in Qian & Jin (2016), Jin & Qian (2019, 2022).
 
 How to install this package? 
-This package can be installed in R either using the install_github function in the ‘devtools’ package, or using the githubinstall function in the ‘githubinstall’ package. For example, the R code for installation of V.PhyloMaker2 using the ‘devtools’ package is as follows,  
+This package can be installed in R using the install_github function in the ‘devtools’ package, as follows,  
 library("devtools")  
 devtools::install_github("jinyizju/V.PhyloMaker2")
 
