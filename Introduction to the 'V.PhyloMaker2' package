@@ -76,6 +76,7 @@ This function extracts the family- and genus-level basal and root node labels, e
 3) difference between build.nodes.1 and build.nodes.2
 In the example phylogeny above, the tips of Genus2 is distributed apart, the three tips, namely “Genus2 t1”,“Genus2 t8” and “Genus 2 t10” form the largest cluster of the genus. The build.nodes.1 function defines the MRCA of this cluster as the basal node of the genus, namely node N6; similarly, node N6 is also defined as the basal node of the family, since the node is also MRCA of the largest cluster of the family in the phylogeny. The node N4 is directly above N6, and it is defined as the root node of Genus2 as well as Family2.
 On the other hand, in build.nodes.2, the basal node of Genus2 is defined as the MRCA of all the tips (fonts in red) of the genus, which is N4 in the phylogeny, and the node direct above it (i.e., N3) is the root node of Genus2. The same rule applies and the basal and root node of Family2 are N4 and N3, respectively. 
+
 4 Building user-specified phylogenies
 4.1 bind.relative
 This function binds a list of species to their designated species- and genus-level relatives in the phylogeny. Below is an example of using this function in conjunction with phylo.maker function to generate a phylogeny of user-specified species list (with species and genus relatives designated), or to ignore the information of relatives and just let phylo.maker to do the work in its own ways.
@@ -121,7 +122,7 @@ Then, use the example species list made above to test the function to test scena
 >plot.phylo(result$tree.scenario.2[[2]], cex = 1.5, main = " randomization.2")
 Scenario 2 is a randomization scenario, the r argument in the function sets the number of randomization, in here, r = 2, so there are two randomizations generated. In this scenario, the new tip is binded to a randomly selected node at and below the genus- or family-level basal node. In this case, Genus2 is already in the phylogeny, so Genus 2 add1 is binded to a randomly selected node at and below the genus-level node.
 
-5	Binding a tip to a phylogeny
+5 Binding a tip to a phylogeny
 1) at.node
 This function binds a tip to a node and creates a polytomy
 >phylo <- at.node(phylogeny = phylogeny, location.node = sample(phylogeny$edge[, 1], 1), tip.label = "New Tip")  # bind a "New Tip" to the phylogeny at a random node.
