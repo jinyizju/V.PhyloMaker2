@@ -1,0 +1,150 @@
+Introduction to the “V.PhyloMaker2” package
+(Version 0.1.0)
+
+Yi Jin
+May 13th, 2022
+
+(Note: R codes lines are started with ">")
+1 Introduction
+This package is an updated version of V.PhyloMaker (Jin & Qian 2019), which is an updated version of S.PhyloMaker (Qian & Jin 2016). This package contains three mega-phylogenies and seven functions to do the work of building phylogenies of vascular plants from a user-specified species list.
+
+2. The three mega-phylogenies, the tips and nodes information (data)
+2.1 The mega-phylogenies
+1) GBOTB.extended.TPL
+This mega-phylogeny includes 74529 tips. Plant names in this phylogeny were standardized according to The Plant List (TPL; http://www.theplantlist.org/). 
+>library(V.PhyloMaker2)
+>str(GBOTB.extended.TPL)
+
+2) GOBTB.extended.LCVP
+This megaphylogeny includes 73420 tips. Plant names in this phylogeny were standardized based on the botanical nomenclature of the Leipzig catalogue of vascular plants (LCVP) database (Freiberg et al., 2020).
+>str(GBOTB.extended.LCVP)
+
+3) GBOTB.extended.WP
+This mega-phylogeny includes 72570 tips. Plant names in this phylogeny were standardized based on the botanical nomenclature of the World Plants (WP) database (https://www.worldplants.de).
+>str(GBOTB.extended.WP)
+
+2.2 The tips information
+1) tips.info.TPL
+  This data frame contains the taxonomic information of all the tips on GBOTB.extended.TPL. 
+>str(tips.info.TPL)
+
+2) tips.info.LCVP
+  This data frame contains the taxonomic information of all the tips on GBOTB.extended.LCVP.
+>str(tips.info.LCVP)
+
+3) tips.info.WP
+  This data frame contains the taxonomic information of all the tips on GBOTB.extended.WP.
+>str(tips.info.WP)
+
+2.3 The nodes information
+1) node.info.1.TPL and nodes.info.2.TPL
+These two data frames, node.info.1.TPL and nodes.info.2.TPL, contain the family- and genus-level nodes information of GBOTB.extended.TPL extracted by the build.nodes.1 and build.nodes.2 functions, respectively.
+>str(nodes.info.1.TPL); 
+> str(nodes.info.2.TPL)
+
+2) node.info.1.LCVP and nodes.info.2.LCVP
+These two data frames, node.info.1.LCVP and nodes.info.2.LCVP, contain the family- and genus-level nodes information of GBOTB.extended.LCVP extracted by the build.nodes.1 and build.nodes.2 functions, respectively.
+>str(nodes.info.1.LCVP)
+>str(nodes.info.2.LCVP)
+
+3) node.info.1.WP and nodes.info.2.WP
+These two data frames, node.info.1.WP and nodes.info.2.WP, contain the family- and genus-level nodes information of GBOTB.extended.WP extracted by the build.nodes.1 and build.nodes.2 functions, respectively.
+>str(nodes.info.1.WP)
+>str(nodes.info.2.WP)
+
+3 Finding the family- and genus-level nodes information in a phylogeny based on taxonomic information of its tips
+First, generate a random phylogeny with ten tips and assign the taxonomic affiliation of its tips.
+>phylogeny <- rcoal(10)  # generate a phylogeny with 10 tips
+>phylogeny$node.label <- paste("N",1:phylogeny$Nnode,sep="")  # label the nodes
+>phylogeny$tip.label <- paste(rep(rep(c("Genus1","Genus2"),2),4:1), phylogeny$tip.label, sep="_")   # rename the tips
+>tips <- data.frame(species = phylogeny$tip.label, genus=rep(rep(c("Genus1","Genus2"),2),4:1), family=rep(rep(c("Family1","Family2"),2),4:1)) # assign the tips taxonomic affiliation
+Plot out the phylogeny to get familiar with its structure. Below we will see how the two build nodes functions extract the nodes information out in different ways.
+# plot the phylogeny
+>plot(phylogeny, show.node.label=TRUE, tip.color=rep(rep(c("black","red"),2),4:1),edge.width=1) 
+
+1) build nodes.1
+This function extracts the family- and genus-level basal and root node labels, etc., in a phylogeny, to be used in functions such as 'phylo.maker' and 'bind.relative'. Here, the basal node of a clade is defined as the most recent common ancestor (MRCA) of two most distantly related tips of that clade in the phylogeny, and the root node is the node direct above the basal node. In the extreme case when one clade owns only one tip in the phylogeny, the basal node is the same as the root node, which is the node the tip directly roots from. If a clade is distributed in more than one clusters (i.e., polyphyletic), this function extracts the nodes information from the largest cluster to represent the clade. Below is the nodes information extracted by build.nodes.1 function.
+>nodes.inf.1 <- build.nodes.1(phylogeny, tips)   # build the nodes information file for the phylogeny
+>nodes.inf.1   # show the nodes.infomation file
+
+2) build nodes.2
+This function extracts the family- and genus-level basal and root node labels, etc., in a phylogeny, to be used in functions such as 'phylo.maker' and 'bind.relative'. Specifically, the basal node of a clade is defined as the most recent common ancestor(MRCA) of the two most distantly related tips of that clade in the phylogeny, regardless if the clade is distributed in one(i.e. monophyletic) or more(i.e. polyphyletic) clusters. When the basal node is determined, the node right above it is defined as the root node. In the extreme case when one clade owns only one tip in the phylogeny, the basal node is the same as the root node, which is the node the tip driectly roots from. Below is the nodes information extracted by build.nodes.2 function.
+>nodes.inf.2 <- build.nodes.2(phylogeny, tips)   # build the nodes information file for the phylogeny
+>nodes.inf.2   # show the nodes.infomation file
+
+3) difference between build.nodes.1 and build.nodes.2
+In the example phylogeny above, the tips of Genus2 is distributed apart, the three tips, namely “Genus2 t1”,“Genus2 t8” and “Genus 2 t10” form the largest cluster of the genus. The build.nodes.1 function defines the MRCA of this cluster as the basal node of the genus, namely node N6; similarly, node N6 is also defined as the basal node of the family, since the node is also MRCA of the largest cluster of the family in the phylogeny. The node N4 is directly above N6, and it is defined as the root node of Genus2 as well as Family2.
+On the other hand, in build.nodes.2, the basal node of Genus2 is defined as the MRCA of all the tips (fonts in red) of the genus, which is N4 in the phylogeny, and the node direct above it (i.e., N3) is the root node of Genus2. The same rule applies and the basal and root node of Family2 are N4 and N3, respectively. 
+4 Building user-specified phylogenies
+4.1 bind.relative
+This function binds a list of species to their designated species- and genus-level relatives in the phylogeny. Below is an example of using this function in conjunction with phylo.maker function to generate a phylogeny of user-specified species list (with species and genus relatives designated), or to ignore the information of relatives and just let phylo.maker to do the work in its own ways.
+First, make an example file that includes species list as well as relatives information, as below,
+### make the example file
+>c1 <- c("Genus2 add1", "Genus3 add2")
+>c2 <- c("Genus2", "Genus2")
+>c3 <- c("Family2","Family2")
+>c4 <- c("Genus2 t1", "")
+>c5 <- c("", "")
+>example <- data.frame(species = c1, genus = c2, family = c3, species.relative = c4, genus.relative = c5)
+>example                        
+
+Then, test the function using the species list.
+### run the function with phylo.maker.
+>result <- bind.relative(example, tree = phylogeny, nodes = nodes.info.1, output.sp.list = TRUE)
+>result1 <- phylo.maker(sp.list = result$species.list, tree = result$phylo, nodes = result$nodes.info, output.tree = TRUE, scenarios = "S3")
+### run phylo.maker only.
+>result2 <- phylo.maker(sp.list = example, tree = phylogeny, nodes = nodes.info.1, output.tree = TRUE, scenarios="S3")
+### compare the phylogeny with and without incorporting bind.relative.
+>par(mfrow=c(1,2),mar=c(1,0,1,1))
+>plot.phylo(result1$tree.scenario.3, cex =1.5, main = "bind.relative + phylo.maker")
+>plot.phylo(result2$tree.scenario.3, cex = 1.5, main = "phylo.maker") 
+
+When species or genus level relatives information is provided, bind.relative works with phylo.maker to derive a more precise phylogeny (the left phylogeny) than using phylo.maker alone (the right phylogeny). Specifically, Genus2 add1 binds to its species relative Genus2 t1 on the megaphylogeny, thus the phylogentic distances differ from binding it to a fixed position at the basal node of Genus2.  
+
+4.2 phylo.maker
+This function makes phylogenetic hypotheses for a list of species under three scenarios based on a backbone phylogeny. 
+First, use the example species list made above to test the function.
+### run the function using scenario 1 and scenario 3
+>result <- phylo.maker(example, tree = phylogeny, nodes = nodes.info.1, output.tree = TRUE, scenarios=c("S1","S3"))
+### plot the phylogenies with node ages displayed.
+>par(mfrow = c(1, 2),mar=c(1,0,1,1))
+>plot.phylo(result$tree.scenario.1, cex = 1.5, main = "scenario.1")
+>plot.phylo(result$tree.scenario.3, cex = 1.5, main = "scenario.3")
+In scenario 1, a new tip is binded to genus- or family-level basal node. In scenario 3, the tip for a new genus is binded to the 1/2 point of the family branch (the branch between the family root node and basal node), unless the family branch length is longer than 2/3 of the whole family branch (from the family root node to the tip) length, the tip of a new genus will be binded to the upper 1/3 point of the whole family branch length. Otherwise, the new tip of an existing genus is binded to the basal node of that genus.
+Then, use the example species list made above to test the function to test scenario 2.
+### run the function using scenario 1 and scenario 3
+>result <- phylo.maker(example, tree = phylogeny, nodes = nodes.info.1, output.tree = TRUE, scenarios=c("S2"), r=2)
+### plot the phylogenies with node ages displayed.
+>par(mfrow = c(1, 2),mar=c(1,0,1,1))
+>plot.phylo(result$tree.scenario.2[[1]], cex = 1.5, main = "randomization.1")
+>plot.phylo(result$tree.scenario.2[[2]], cex = 1.5, main = " randomization.2")
+Scenario 2 is a randomization scenario, the r argument in the function sets the number of randomization, in here, r = 2, so there are two randomizations generated. In this scenario, the new tip is binded to a randomly selected node at and below the genus- or family-level basal node. In this case, Genus2 is already in the phylogeny, so Genus 2 add1 is binded to a randomly selected node at and below the genus-level node.
+
+5	Binding a tip to a phylogeny
+1) at.node
+This function binds a tip to a node and creates a polytomy
+>phylo <- at.node(phylogeny = phylogeny, location.node = sample(phylogeny$edge[, 1], 1), tip.label = "New Tip")  # bind a "New Tip" to the phylogeny at a random node.
+>par(mfrow = c(1, 2),mar=c(1,0,1,1))
+>plot(phylogeny)        # plot the phylogeny.
+>plot(phylo)          # plot the phylogeny with the "New Tip" binded.
+
+2) int.node
+This functions binds a tip to an interior branch above a node, and creates a new node.
+>phylo <- int.node(phylogeny = phylogeny, location.node = sample(phylogeny$edge[, 1], 1), tip.label = "New Tip", node.label = NULL, position = 0.5)    # bind a "New Tip" to the phylogeny to a branch above a random node.
+>par(mfrow = c(1, 2),mar=c(1,0,1,1))
+>plot(phylogeny)    # plot the phylogeny.
+>plot(phylo)    # plot the phylogeny with the "New Tip" binded.
+
+3) ext.node
+This functions binds a tip to a terminal branch in a phylogeny, and creates a node.
+>phylo <- ext.node(phylogeny = phylogeny, location.tip = sample(1:10, 1), tip.label = "New Tip", node.label = NULL, position = 0.5)   # bind a "New Tip" to a random terminal branch.
+>par(mfrow = c(1, 2),mar=c(1,0,1,1))
+>plot(phylogeny)    # plot the phylogeny.
+>plot(phylo)     # plot the phylogeny with the "New Tip" binded.
+ 
+6 References
+Freiberg, M., Winter, M., Gentile, A., et al., 2020. LCVP, the Leipzig catalogue of vascular plants, a new taxonomic reference list for all known vascular plants. Sci. Data 7, 416.
+Jin Y, & Qian H. (2019) V.PhyloMaker: an R package that can generate very large phylogenies for vascular plants. Ecography, 42, 1353–1359.
+Qian H, & Jin Y. (2016) An updated megaphylogeny of plants, a tool for generating plant phylogenies and an analysis of phylogenetic community structure. Journal of Plant Ecology, 9, 233–239. 
+Smith SA, & Brown JW. (2018) Constructing a broadly inclusive seed plant phylogeny. American Journal of Botany, 105, 302–314.
+Zanne AE, Tank DC, Cornwell WK, Eastman JM, Smith SA, FitzJohn RG, McGlinn DJ, O’Meara BC, Moles AT, Reich PB, Royer DL, Soltis DE, Stevens PF, Westoby M, Wright IJ, Aarssen L, Bertin RI, Calaminus A, Govaerts R, Hemmings F, Leishman MR, Oleksyn J, Soltis PS, Swenson NG, Warman L, & Beaulieu JM. (2014) Three keys to the radiation of angiosperms into freezing environments. Nature, 506, 89–92.
