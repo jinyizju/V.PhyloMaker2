@@ -26,15 +26,15 @@ This mega-phylogeny includes 72570 tips. Plant names in this phylogeny were stan
 
 2.2 The tips information
 1) tips.info.TPL
-  This data frame contains the taxonomic information of all the tips on GBOTB.extended.TPL. 
+This data frame contains the taxonomic information of all the tips on GBOTB.extended.TPL. 
 >str(tips.info.TPL)
 
 2) tips.info.LCVP
-  This data frame contains the taxonomic information of all the tips on GBOTB.extended.LCVP.
+This data frame contains the taxonomic information of all the tips on GBOTB.extended.LCVP.
 >str(tips.info.LCVP)
 
 3) tips.info.WP
-  This data frame contains the taxonomic information of all the tips on GBOTB.extended.WP.
+This data frame contains the taxonomic information of all the tips on GBOTB.extended.WP.
 >str(tips.info.WP)
 
 2.3 The nodes information
