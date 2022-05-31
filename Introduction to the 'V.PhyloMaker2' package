@@ -85,7 +85,7 @@ First, make an example file that includes species list as well as relatives info
 >c1 <- c("Genus2 add1", "Genus3 add2")
 >c2 <- c("Genus2", "Genus2")
 >c3 <- c("Family2","Family2")
->c4 <- c("Genus2 t1", "")
+>c4 <- c("Genus2 t9", "")
 >c5 <- c("", "")
 >example <- data.frame(species = c1, genus = c2, family = c3, species.relative = c4, genus.relative = c5)
 >example                        
