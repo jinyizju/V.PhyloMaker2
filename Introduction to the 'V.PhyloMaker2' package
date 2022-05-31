@@ -65,13 +65,13 @@ Plot out the phylogeny to get familiar with its structure. Below we will see how
 
 1) build nodes.1
 This function extracts the family- and genus-level basal and root node labels, etc., in a phylogeny, to be used in functions such as 'phylo.maker' and 'bind.relative'. Here, the basal node of a clade is defined as the most recent common ancestor (MRCA) of two most distantly related tips of that clade in the phylogeny, and the root node is the node direct above the basal node. In the extreme case when one clade owns only one tip in the phylogeny, the basal node is the same as the root node, which is the node the tip directly roots from. If a clade is distributed in more than one clusters (i.e., polyphyletic), this function extracts the nodes information from the largest cluster to represent the clade. Below is the nodes information extracted by build.nodes.1 function.
->nodes.inf.1 <- build.nodes.1(phylogeny, tips)   # build the nodes information file for the phylogeny
->nodes.inf.1   # show the nodes.infomation file
+>nodes.info.1 <- build.nodes.1(phylogeny, tips)   # build the nodes information file for the phylogeny
+>nodes.info.1   # show the nodes.infomation file
 
 2) build nodes.2
 This function extracts the family- and genus-level basal and root node labels, etc., in a phylogeny, to be used in functions such as 'phylo.maker' and 'bind.relative'. Specifically, the basal node of a clade is defined as the most recent common ancestor(MRCA) of the two most distantly related tips of that clade in the phylogeny, regardless if the clade is distributed in one(i.e. monophyletic) or more(i.e. polyphyletic) clusters. When the basal node is determined, the node right above it is defined as the root node. In the extreme case when one clade owns only one tip in the phylogeny, the basal node is the same as the root node, which is the node the tip driectly roots from. Below is the nodes information extracted by build.nodes.2 function.
->nodes.inf.2 <- build.nodes.2(phylogeny, tips)   # build the nodes information file for the phylogeny
->nodes.inf.2   # show the nodes.infomation file
+>nodes.info.2 <- build.nodes.2(phylogeny, tips)   # build the nodes information file for the phylogeny
+>nodes.info.2   # show the nodes.infomation file
 
 3) difference between build.nodes.1 and build.nodes.2
 In the example phylogeny above, the tips of Genus2 is distributed apart, the three tips, namely “Genus2 t1”,“Genus2 t8” and “Genus 2 t10” form the largest cluster of the genus. The build.nodes.1 function defines the MRCA of this cluster as the basal node of the genus, namely node N6; similarly, node N6 is also defined as the basal node of the family, since the node is also MRCA of the largest cluster of the family in the phylogeny. The node N4 is directly above N6, and it is defined as the root node of Genus2 as well as Family2.
