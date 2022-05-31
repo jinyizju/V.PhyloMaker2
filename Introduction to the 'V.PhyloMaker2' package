@@ -55,13 +55,17 @@ These two data frames, node.info.1.WP and nodes.info.2.WP, contain the family- a
 
 3 Finding the family- and genus-level nodes information in a phylogeny based on taxonomic information of its tips
 First, generate a random phylogeny with ten tips and assign the taxonomic affiliation of its tips.
->phylogeny <- rcoal(10)  # generate a phylogeny with 10 tips
+>x <- "((((((t1:1,t2:1):1,t3:2):3,t4:5):1,(t5:3,t6:3):3):1,(t7:4,t8:4):3):1,t9:8);"
+>cat(x, file="tree.tre", sep = "\n")
+>phylogeny <- read.tree("tree.tre")  # generate a phylogeny with 9 tips
 >phylogeny$node.label <- paste("N",1:phylogeny$Nnode,sep="")  # label the nodes
->phylogeny$tip.label <- paste(rep(rep(c("Genus1","Genus2"),2),4:1), phylogeny$tip.label, sep="_")   # rename the tips
->tips <- data.frame(species = phylogeny$tip.label, genus=rep(rep(c("Genus1","Genus2"),2),4:1), family=rep(rep(c("Family1","Family2"),2),4:1)) # assign the tips taxonomic affiliation
+>g <- rep("Genus2",9); g[c(1:4,7)]<-"Genus1"
+>f <- rep("Family2",9); f[c(1:4,7)]<-"Family1"
+>phylogeny$tip.label <- paste(g, sort(phylogeny$tip.label), sep="_")   # rename the tips
+>tips <- data.frame(species = phylogeny$tip.label, genus=g, family=f)   # assign the tips taxonomic affiliation
 Plot out the phylogeny to get familiar with its structure. Below we will see how the two build nodes functions extract the nodes information out in different ways.
 # plot the phylogeny
->plot(phylogeny, show.node.label=TRUE, tip.color=rep(rep(c("black","red"),2),4:1),edge.width=1) 
+>plot(phylogeny, show.node.label = TRUE, edge.width = 1) 
 
 1) build nodes.1
 This function extracts the family- and genus-level basal and root node labels, etc., in a phylogeny, to be used in functions such as 'phylo.maker' and 'bind.relative'. Here, the basal node of a clade is defined as the most recent common ancestor (MRCA) of two most distantly related tips of that clade in the phylogeny, and the root node is the node direct above the basal node. In the extreme case when one clade owns only one tip in the phylogeny, the basal node is the same as the root node, which is the node the tip directly roots from. If a clade is distributed in more than one clusters (i.e., polyphyletic), this function extracts the nodes information from the largest cluster to represent the clade. Below is the nodes information extracted by build.nodes.1 function.
@@ -82,13 +86,13 @@ On the other hand, in build.nodes.2, the basal node of Genus2 is defined as the 
 This function binds a list of species to their designated species- and genus-level relatives in the phylogeny. Below is an example of using this function in conjunction with phylo.maker function to generate a phylogeny of user-specified species list (with species and genus relatives designated), or to ignore the information of relatives and just let phylo.maker to do the work in its own ways.
 First, make an example file that includes species list as well as relatives information, as below,
 ### make the example file
->c1 <- c("Genus2 add1", "Genus3 add2")
->c2 <- c("Genus2", "Genus2")
->c3 <- c("Family2","Family2")
->c4 <- c("Genus2 t9", "")
+>c1 <- c("Genus1 add1", "Genus0 add2")
+>c2 <- c("Genus1", "Genus0")
+>c3 <- c("Family1","Family1")
+>c4 <- c("Genus1 t1", "")
 >c5 <- c("", "")
 >example <- data.frame(species = c1, genus = c2, family = c3, species.relative = c4, genus.relative = c5)
->example                        
+>example                         
 
 Then, test the function using the species list.
 ### run the function with phylo.maker.
