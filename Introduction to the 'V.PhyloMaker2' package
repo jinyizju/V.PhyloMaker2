@@ -40,8 +40,8 @@ This mega-phylogeny includes 72570 tips. Plant names in this phylogeny were stan
 2.3 The nodes information
 1) node.info.1.TPL and nodes.info.2.TPL
 These two data frames, node.info.1.TPL and nodes.info.2.TPL, contain the family- and genus-level nodes information of GBOTB.extended.TPL extracted by the build.nodes.1 and build.nodes.2 functions, respectively.
->str(nodes.info.1.TPL); 
-> str(nodes.info.2.TPL)
+>str(nodes.info.1.TPL) 
+>str(nodes.info.2.TPL)
 
 2) node.info.1.LCVP and nodes.info.2.LCVP
 These two data frames, node.info.1.LCVP and nodes.info.2.LCVP, contain the family- and genus-level nodes information of GBOTB.extended.LCVP extracted by the build.nodes.1 and build.nodes.2 functions, respectively.
@@ -56,13 +56,13 @@ These two data frames, node.info.1.WP and nodes.info.2.WP, contain the family- a
 3 Finding the family- and genus-level nodes information in a phylogeny based on taxonomic information of its tips
 First, generate a random phylogeny with ten tips and assign the taxonomic affiliation of its tips.
 >x <- "((((((t1:1,t2:1):1,t3:2):3,t4:5):1,(t5:3,t6:3):3):1,(t7:4,t8:4):3):1,t9:8);"
->cat(x, file="tree.tre", sep = "\n")
+>cat(x, file = "tree.tre", sep = "\n")
 >phylogeny <- read.tree("tree.tre")  # generate a phylogeny with 9 tips
 >phylogeny$node.label <- paste("N",1:phylogeny$Nnode,sep="")  # label the nodes
->g <- rep("Genus2",9); g[c(1:4,7)]<-"Genus1"
->f <- rep("Family2",9); f[c(1:4,7)]<-"Family1"
->phylogeny$tip.label <- paste(g, sort(phylogeny$tip.label), sep="_")   # rename the tips
->tips <- data.frame(species = phylogeny$tip.label, genus=g, family=f)   # assign the tips taxonomic affiliation
+>g <- rep("Genus2", 9); g[c(1:4, 7)] <- "Genus1"
+>f <- rep("Family2", 9); f[c(1:4, 7)] <- "Family1"
+>phylogeny$tip.label <- paste(g, sort(phylogeny$tip.label), sep = "_")   # rename the tips
+>tips <- data.frame(species = phylogeny$tip.label, genus = g, family = f)   # assign the tips taxonomic affiliation
 Plot out the phylogeny to get familiar with its structure. Below we will see how the two build nodes functions extract the nodes information out in different ways.
 # plot the phylogeny
 >plot(phylogeny, show.node.label = TRUE, edge.width = 1) 
@@ -88,7 +88,7 @@ First, make an example file that includes species list as well as relatives info
 ### make the example file
 >c1 <- c("Genus1 add1", "Genus0 add2")
 >c2 <- c("Genus1", "Genus0")
->c3 <- c("Family1","Family1")
+>c3 <- c("Family1", "Family1")
 >c4 <- c("Genus1 t1", "")
 >c5 <- c("", "")
 >example <- data.frame(species = c1, genus = c2, family = c3, species.relative = c4, genus.relative = c5)
@@ -99,9 +99,9 @@ Then, test the function using the species list.
 >result <- bind.relative(example, tree = phylogeny, nodes = nodes.info.1, output.sp.list = TRUE)
 >result1 <- phylo.maker(sp.list = result$species.list, tree = result$phylo, nodes = result$nodes.info, output.tree = TRUE, scenarios = "S3")
 ### run phylo.maker only.
->result2 <- phylo.maker(sp.list = example, tree = phylogeny, nodes = nodes.info.1, output.tree = TRUE, scenarios="S3")
+>result2 <- phylo.maker(sp.list = example, tree = phylogeny, nodes = nodes.info.1, output.tree = TRUE, scenarios = "S3")
 ### compare the phylogeny with and without incorporting bind.relative.
->par(mfrow=c(1,2),mar=c(1,0,1,1))
+>par(mfrow = c(1, 2), mar = c(1, 0, 1, 1))
 >plot.phylo(result1$tree.scenario.3, cex =1.5, main = "bind.relative + phylo.maker")
 >plot.phylo(result2$tree.scenario.3, cex = 1.5, main = "phylo.maker") 
 
@@ -111,9 +111,9 @@ When species or genus level relatives information is provided, bind.relative wor
 This function makes phylogenetic hypotheses for a list of species under three scenarios based on a backbone phylogeny. 
 First, use the example species list made above to test the function.
 ### run the function using scenario 1 and scenario 3.
->result <- phylo.maker(example, tree = phylogeny, nodes = nodes.info.1, output.tree = TRUE, scenarios = c("S1","S3"))
+>result <- phylo.maker(example, tree = phylogeny, nodes = nodes.info.1, output.tree = TRUE, scenarios = c("S1", "S3"))
 ### plot the phylogenies with node ages displayed.
->par(mfrow = c(1, 2),mar=c(1,0,1,1))
+>par(mfrow = c(1, 2), mar = c(1, 0, 1, 1))
 >plot.phylo(result$tree.scenario.1, cex = 1.5, main = "scenario.1")
 >plot.phylo(result$tree.scenario.3, cex = 1.5, main = "scenario.3")
 In scenario 1, a new tip is binded to genus- or family-level basal node. In scenario 3, the tip for a new genus is binded to the 1/2 point of the family branch (the branch between the family root node and basal node), unless the family branch length is longer than 2/3 of the whole family branch (from the family root node to the tip) length, the tip of a new genus will be binded to the upper 1/3 point of the whole family branch length. Otherwise, the new tip of an existing genus is binded to the basal node of that genus.
@@ -121,7 +121,7 @@ Then, use the example species list made above to test the function to test scena
 ### run the function using scenario 2, with two randomizations.
 >result <- phylo.maker(example, tree = phylogeny, nodes = nodes.info.1, output.tree = TRUE, scenarios = c("S2"), r = 2)
 ### plot the phylogenies with node ages displayed.
->par(mfrow = c(1, 2),mar=c(1,0,1,1))
+>par(mfrow = c(1, 2),mar = c(1, 0, 1, 1))
 >plot.phylo(result$tree.scenario.2[[1]], cex = 1.5, main = "randomization.1")
 >plot.phylo(result$tree.scenario.2[[2]], cex = 1.5, main = " randomization.2")
 Scenario 2 is a randomization scenario, the r argument in the function sets the number of randomization, in here, r = 2, so there are two randomizations generated. In this scenario, the new tip is binded to a randomly selected node at and below the genus- or family-level basal node. In this case, Genus2 is already in the phylogeny, so Genus 2 add1 is binded to a randomly selected node at and below the genus-level node.
@@ -130,21 +130,21 @@ Scenario 2 is a randomization scenario, the r argument in the function sets the 
 1) at.node
 This function binds a tip to a node and creates a polytomy
 >phylo <- at.node(phylogeny = phylogeny, location.node = sample(phylogeny$edge[, 1], 1), tip.label = "New Tip")  # bind a "New Tip" to the phylogeny at a random node.
->par(mfrow = c(1, 2),mar=c(1,0,1,1))
+>par(mfrow = c(1, 2),mar = c(1, 0, 1, 1))
 >plot(phylogeny)        # plot the phylogeny.
 >plot(phylo)          # plot the phylogeny with the "New Tip" binded.
 
 2) int.node
 This functions binds a tip to an interior branch above a node, and creates a new node.
 >phylo <- int.node(phylogeny = phylogeny, location.node = sample(phylogeny$edge[, 1], 1), tip.label = "New Tip", node.label = NULL, position = 0.5)    # bind a "New Tip" to the phylogeny to a branch above a random node.
->par(mfrow = c(1, 2),mar=c(1,0,1,1))
+>par(mfrow = c(1, 2),mar = c(1, 0, 1, 1))
 >plot(phylogeny)    # plot the phylogeny.
 >plot(phylo)    # plot the phylogeny with the "New Tip" binded.
 
 3) ext.node
 This functions binds a tip to a terminal branch in a phylogeny, and creates a node.
 >phylo <- ext.node(phylogeny = phylogeny, location.tip = sample(1:10, 1), tip.label = "New Tip", node.label = NULL, position = 0.5)   # bind a "New Tip" to a random terminal branch.
->par(mfrow = c(1, 2),mar=c(1,0,1,1))
+>par(mfrow = c(1, 2), mar = c(1, 0, 1, 1))
 >plot(phylogeny)    # plot the phylogeny.
 >plot(phylo)     # plot the phylogeny with the "New Tip" binded.
  
