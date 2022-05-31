@@ -106,16 +106,16 @@ When species or genus level relatives information is provided, bind.relative wor
 4.2 phylo.maker
 This function makes phylogenetic hypotheses for a list of species under three scenarios based on a backbone phylogeny. 
 First, use the example species list made above to test the function.
-### run the function using scenario 1 and scenario 3
->result <- phylo.maker(example, tree = phylogeny, nodes = nodes.info.1, output.tree = TRUE, scenarios=c("S1","S3"))
+### run the function using scenario 1 and scenario 3.
+>result <- phylo.maker(example, tree = phylogeny, nodes = nodes.info.1, output.tree = TRUE, scenarios = c("S1","S3"))
 ### plot the phylogenies with node ages displayed.
 >par(mfrow = c(1, 2),mar=c(1,0,1,1))
 >plot.phylo(result$tree.scenario.1, cex = 1.5, main = "scenario.1")
 >plot.phylo(result$tree.scenario.3, cex = 1.5, main = "scenario.3")
 In scenario 1, a new tip is binded to genus- or family-level basal node. In scenario 3, the tip for a new genus is binded to the 1/2 point of the family branch (the branch between the family root node and basal node), unless the family branch length is longer than 2/3 of the whole family branch (from the family root node to the tip) length, the tip of a new genus will be binded to the upper 1/3 point of the whole family branch length. Otherwise, the new tip of an existing genus is binded to the basal node of that genus.
 Then, use the example species list made above to test the function to test scenario 2.
-### run the function using scenario 1 and scenario 3
->result <- phylo.maker(example, tree = phylogeny, nodes = nodes.info.1, output.tree = TRUE, scenarios=c("S2"), r=2)
+### run the function using scenario 2, with two randomizations.
+>result <- phylo.maker(example, tree = phylogeny, nodes = nodes.info.1, output.tree = TRUE, scenarios = c("S2"), r = 2)
 ### plot the phylogenies with node ages displayed.
 >par(mfrow = c(1, 2),mar=c(1,0,1,1))
 >plot.phylo(result$tree.scenario.2[[1]], cex = 1.5, main = "randomization.1")
