@@ -51,3 +51,7 @@ Jin, Y., & Qian, H. (2022). V.PhyloMaker2: An updated and enlarged R package tha
 Jin, Y., & Qian, H. (2019). V. PhyloMaker: an R package that can generate very large phylogenies for vascular plants. Ecography, 42(8), 1353-1359.  
 Smith, S. A., & Brown, J. W. (2018). Constructing a broadly inclusive seed plant phylogeny. American journal of botany, 105(3), 302-314.  
 Zanne, A. E., Tank, D. C., Cornwell, W. K., Eastman, J. M., Smith, S. A., FitzJohn, R. G., ... & Beaulieu, J. M. (2014). Three keys to the radiation of angiosperms into freezing environments. Nature, 506(7486), 89-92.
+
+
+Note:
+Supplementary of the V.PhyloMaker2 paper (i.e. Jin & Qian 2022) can be found in https://github.com/jinyizju/Supplementary-files-of-the-V.PhyloMaker2-paper
