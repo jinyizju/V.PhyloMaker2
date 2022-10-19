@@ -54,4 +54,4 @@ Zanne, A. E., Tank, D. C., Cornwell, W. K., Eastman, J. M., Smith, S. A., FitzJo
 
 
 Note:
-Supplementary of the V.PhyloMaker2 paper (i.e. Jin & Qian 2022) can be found in https://github.com/jinyizju/Supplementary-files-of-the-V.PhyloMaker2-paper
+upplementary of the V.PhyloMaker2 paper (i.e. Jin & Qian 2022) can be found in https://github.com/jinyizju/Supplementary-files-of-the-V.PhyloMaker2-paper
