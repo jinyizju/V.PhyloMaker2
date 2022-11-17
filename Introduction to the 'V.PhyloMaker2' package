@@ -54,7 +54,7 @@ These two data frames, node.info.1.WP and nodes.info.2.WP, contain the family- a
 >str(nodes.info.2.WP)
 
 3 Finding the family- and genus-level nodes information in a phylogeny based on taxonomic information of its tips
-First, generate a phylogeny with ten tips and assign the taxonomic affiliation of its tips.
+First, generate a phylogeny with nine tips and assign the taxonomic affiliation of its tips.
 >x <- "((((((t1:1,t2:1):1,t3:2):3,t4:5):1,(t5:3,t6:3):3):1,(t7:4,t8:4):3):1,t9:8);"
 >cat(x, file = "tree.tre", sep = "\n")
 >phylogeny <- read.tree("tree.tre")  # generate a phylogeny with 9 tips
